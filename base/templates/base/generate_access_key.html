@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <h1>Generate Access Key</h1>
+  {% if error_message %}
+  <p>{{ error_message }}
+    
+    <a href="{% url 'access_key_list' %}">View Access Keys</a>
+  </p>
+  {% endif %}
+
+    <form method="POST" action="">
+      {% csrf_token %}
+      {% for field in form %}
+        <div>
+          {% if field.name == 'user' %}
+            {% if request.user.is_staff %}
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+            {% else %}
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              <select name="{{field.html_name}}" id="{{field.auto_id}}">
+                <option value="{{ request.user.pk }}" selected>{{request.user.username}}</option>
+              </select>
+            {% endif %}
+          {% elif field.name == 'status' %}
+            <label for="status">Status: </label>
+            <select name="status" id="status">
+              <option value="active" selected>Active</option>
+            </select>
+          {% else %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+          {% endif %}    
+          </div>
+      {% endfor %}
+        <br><br>
+      <input type="submit" value="Generate Access Key">
+    </form>
+{% endblock %}

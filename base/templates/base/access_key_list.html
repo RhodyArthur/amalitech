@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  
+{% if request.user.is_staff %}
+  <h2>All Access Keys</h2>
+{% else %}
+  <h2>Access Keys for {{ request.user.username|capfirst }}</h2>
+{% endif %}
+  
+  {% if access_keys %}
+    <ul>
+      {% for access_key in access_keys %}
+        <li>
+          <strong>User:</strong> {{ access_key.user|capfirst }}<br>
+          <strong>Access Key:</strong> {{ access_key.key_value }}<br>
+          <strong>Status:</strong> {{ access_key.status }}<br>
+          <strong>Procurement Date:</strong> {{ access_key.date_procured }}<br>
+          <strong>Expiry Date:</strong> {{ access_key.expiry_date }}
+        </li>
+        <br><br>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No access keys found.</p>
+  {% endif %}
+{% endblock %}

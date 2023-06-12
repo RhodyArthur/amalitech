@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <h1>Micro-Focus Admin Dashboard  <a href="{% url 'school_key_details' %}" style="float: right; font-size: 20px;" >Endpoint</a></h1>
+
+  <h2>Access Key List</h2>
+  <br>
+  {% if access_keys %}
+    <table>
+      <thead>
+        <tr>
+          <th>Users</th>
+          <th>Access Key</th>
+          <th>Status</th>
+          <th>Procurement Date</th>
+          <th>Expiry Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for key in access_keys %}
+        <tr>
+          <td>{{ key.user|capfirst }}</td>
+          <td>{{ key.key_value }}</td>
+          <td>{{ key.status }}</td>
+          <td>{{ key.date_procured }}</td>
+          <td>{{ key.expiry_date }}</td>
+          {% if key.status != 'revoked' %}
+            <td>
+            <a href="{% url 'revoke_access_key' key.id %}">Revoke</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No access keys found.</p>
+  {% endif %}
+{% endblock %}
+
+
+

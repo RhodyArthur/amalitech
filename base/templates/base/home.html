@@ -1,0 +1,31 @@
+{% extends 'main.html' %}
+{% block title %} Home {% endblock%}
+{% block content %}
+    <h1>Home  
+        <p style="float: right; font-size: 18px;">Hello, {{ request.user.username|capfirst }} 
+        </p>
+    </h1>
+    
+    {% if user.is_staff %}
+        <a href="{% url 'admin_dashboard' %}">Admin Dashboard</a> |
+        <a href="{% url 'generate_key_view' %}">Generate Access Key</a> |
+    {% else %}
+    <a href="{% url 'generate_key_view' %}">Purchase Access Key</a> |
+    <a href="{% url 'access_key_list' %}">View Access Keys</a> |
+    {% endif %}
+
+    <a href="{% url 'password_change' %}">Change Password </a> 
+    <a href="{% url 'logout' %}" style="float: right;"> Logout</a>
+
+    <br>
+    <br>
+    
+    <p>Welcome to Micro-Focus
+        <blockquote><strong>Micro-Focus Inc.</strong>, a software company has built a school management platform that is 
+            multitenant i.e., various schools can set up on the platform as though the platform was 
+            built specifically for them. They use an <strong>access key-based</strong> approach to 
+            monetize it rather than building payment features into the school software. A web application that
+            schools can use to purchase access keys to activate their school account.</blockquote>
+    </p>
+
+{% endblock %}

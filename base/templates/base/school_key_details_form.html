@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <h2>Enter email used for registration</h2>
+  <form method="GET" action="">
+    <label for="school-email">Email: </label>
+    <input type="email" name="email" required>
+    <br>
+    <input type="submit" value="Submit"/>
+  </form>
+
+  #displaying details
+  {% if access_key %}
+    <h3>Key Details:</h3>
+    <p>Status: {{ access_key.status }}</p>
+    <p>Key Value: {{ access_key.key_value }}</p>
+    <p>Date Procured: {{ access_key.date_procured }}</p>
+    <p>Expiry Date: {{ access_key.expiry_date }}</p>
+  {% endif %}
+  
+  {% if error_message %}
+    <p>{{ error_message }}</p>
+  {% endif %}
+{% endblock %}

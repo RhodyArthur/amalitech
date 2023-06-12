@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <h1>Revoke Access Key</h1>
+  
+  <form method="POST">
+    {% csrf_token %}
+    <p>Are you sure you want to revoke the access key "{{ access_key.key_value }}"?</p>
+    <input type="submit" value="Revoke"/>
+  </form>
+  
+{% endblock %}
